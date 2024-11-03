@@ -1,5 +1,8 @@
 /vendor
 /composer.lock
 /bin/coveralls
+/bin/php-parse
+/bin/php-parse.bat
 /bin/phpunit
+/bin/phpunit.bat
 /bin/test-reporter

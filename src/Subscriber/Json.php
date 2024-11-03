@@ -47,7 +47,7 @@ class Json extends Subscriber
             'type' => $event->getRule()->getName(),
             'description' => $event->getRule()->getDescription(),
             'file' => $event->getFile()->getPath(),
-            'line' => $event->getNode()->getLine(),
+            'line' => $event->getNode()->getStartLine(),
             'source' => implode("\n", $event->getFile()->fetchNode($event->getNode()))
         ];
     }

@@ -39,18 +39,19 @@ class RulesCommand extends Command
      *
      * @param  InputInterface  $input  Input object
      * @param  OutputInterface $output Output object
-     * @return void
+     * @return int
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output) : int
     {
         $rules = (new RuleFactory)->createRuleCollection();
 
         if ($rulename = $input->getArgument('rule')) {
             $this->describeRule($rules->get($rulename), $output);
-            return;
+            return Command::SUCCESS;
         }
 
         $this->listRules($rules, $output);
+        return Command::SUCCESS;
     }
 
     /**

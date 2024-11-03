@@ -10,6 +10,7 @@ use PhpParser\Node;
 
 use PhpParser\Error;
 use PhpParser\ParserFactory;
+use PhpParser\PhpVersion;
 
 /**
  * Iterates over and validates files, dispatching events
@@ -52,7 +53,7 @@ class Scanner implements Event\Events
     ) {
         $this->dispatcher = $dispatcher;
         $this->visitor = $visitor;
-        $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+        $this->parser = (new ParserFactory)->createForVersion(PhpVersion::getHostVersion());
         $this->traverser = $traverser ?: new NodeTraverser;
         $this->visitor->onNodeFailure([$this, 'onNodeFailure']);
         $this->traverser->addVisitor($this->visitor);
@@ -68,7 +69,7 @@ class Scanner implements Event\Events
      */
     public function onNodeFailure(RuleInterface $rule, Node $node, File $file)
     {
-        $this->dispatcher->dispatch(self::FILE_ISSUE, new Event\IssueEvent($rule, $node, $file));
+        $this->dispatcher->dispatch(new Event\IssueEvent($rule, $node, $file), self::FILE_ISSUE);
     }
 
     /**
@@ -79,15 +80,15 @@ class Scanner implements Event\Events
      */
     public function scan(FileIterator $fileIterator)
     {
-        $this->dispatcher->dispatch(self::SCAN_START);
+        $this->dispatcher->dispatch($this, self::SCAN_START);
 
         foreach ($fileIterator as $file) {
-            $this->dispatcher->dispatch(self::FILE_OPEN, new Event\FileEvent($file));
+            $this->dispatcher->dispatch(new Event\FileEvent($file), self::FILE_OPEN);
 
             if ($file->isPathMatch('/\.phps$/i')) {
                 $this->dispatcher->dispatch(
-                    self::FILE_ERROR,
-                    new Event\ErrorEvent('You have a .phps file - REMOVE NOW', $file)
+                    new Event\ErrorEvent('You have a .phps file', $file),
+                    self::FILE_ERROR
                 );
             }
 
@@ -96,14 +97,14 @@ class Scanner implements Event\Events
                 $this->traverser->traverse($this->parser->parse($file->getContents()));
             } catch (\PhpParser\Error $e) {
                 $this->dispatcher->dispatch(
-                    self::FILE_ERROR,
-                    new Event\ErrorEvent($e->getMessage(), $file)
+                    new Event\ErrorEvent($e->getMessage(), $file),
+                    self::FILE_ERROR
                 );
             }
 
-            $this->dispatcher->dispatch(self::FILE_CLOSE);
+            $this->dispatcher->dispatch(new Event\FileEvent($file), self::FILE_CLOSE);
         }
 
-        $this->dispatcher->dispatch(self::SCAN_COMPLETE);
+        $this->dispatcher->dispatch($this, self::SCAN_COMPLETE);
     }
 }

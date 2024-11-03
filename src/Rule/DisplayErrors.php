@@ -49,8 +49,8 @@ class DisplayErrors implements RuleInterface
     {
         $arg = $this->getCalledFunctionArgument($node, $index);
         if ($this->isBoolLiteral($arg->value)) {
-            return (string)$arg->value->name;
+            return (string)$arg->name;
         }
-        return property_exists($arg->value, 'value') ? $arg->value->value : '';
+        return property_exists($arg->value, 'value') ? $arg->value->{'value'} : '';
     }
 }

@@ -47,7 +47,7 @@ class HardcodedSensitiveValues implements RuleInterface
             $constantNameArgument = $this->getCalledFunctionArgument($node, 0)->value;
 
             if (property_exists($constantNameArgument, 'value')) {
-                $name = $constantNameArgument->value;
+                $name = $constantNameArgument->{'value'};
                 $value = $this->getCalledFunctionArgument($node, 1)->value;
 
                 return [$name, $value];

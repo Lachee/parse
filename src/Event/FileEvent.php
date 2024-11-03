@@ -2,8 +2,8 @@
 
 namespace Psecio\Parse\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Psecio\Parse\File;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Event containing a File object

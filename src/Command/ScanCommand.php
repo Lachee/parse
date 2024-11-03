@@ -97,9 +97,9 @@ class ScanCommand extends Command
      * @param  InputInterface   $input Input object
      * @param  OutputInterface  $output Output object
      * @throws RuntimeException If output format is not valid
-     * @return void
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $dispatcher = new EventDispatcher;
 
@@ -160,7 +160,7 @@ class ScanCommand extends Command
             $ruleCollection->toArray()
         ));
 
-        $dispatcher->dispatch(Events::DEBUG, new MessageEvent("Using ruleset $ruleNames"));
+        $dispatcher->dispatch(new MessageEvent("Using ruleset $ruleNames"), Events::DEBUG);
 
         $docCommentFactory = new DocCommentFactory();
 

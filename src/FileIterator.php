@@ -114,7 +114,7 @@ class FileIterator implements IteratorAggregate, Countable
      *
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator() : ArrayIterator
     {
         return new ArrayIterator($this->files);
     }
@@ -124,7 +124,7 @@ class FileIterator implements IteratorAggregate, Countable
      *
      * @return integer
      */
-    public function count()
+    public function count() : int
     {
         return count($this->files);
     }

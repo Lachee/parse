@@ -35,7 +35,7 @@ class ConsoleLines extends Subscriber
         $this->write(
             "<error>[ISSUE] [%s] On line %d in %s</error>\n",
             $event->getRule()->getName(),
-            $event->getNode()->getLine(),
+            $event->getNode()->getStartLine(),
             $event->getFile()->getPath()
         );
     }

@@ -34,7 +34,7 @@ class RuleCollection implements Countable, IteratorAggregate
      *
      * @return integer Count result
      */
-    public function count()
+    public function count() : int
     {
         return count($this->rules);
     }
@@ -44,7 +44,7 @@ class RuleCollection implements Countable, IteratorAggregate
      *
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator() : ArrayIterator
     {
         return new ArrayIterator($this->rules);
     }

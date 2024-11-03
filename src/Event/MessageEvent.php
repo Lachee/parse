@@ -2,7 +2,7 @@
 
 namespace Psecio\Parse\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Event containing a message

@@ -5,7 +5,7 @@ namespace Psecio\Parse;
 /**
  * @covers \Psecio\Parse\FileIterator
  */
-class FileIteratorTest extends \PHPUnit_Framework_TestCase
+class FileIteratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var string[] List of file names to find in scan
@@ -22,7 +22,7 @@ class FileIteratorTest extends \PHPUnit_Framework_TestCase
         return self::$testDir . '/' . $name;
     }
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$testDir = sys_get_temp_dir() . '/' . uniqid('psecio-parse');
 
@@ -35,7 +35,7 @@ class FileIteratorTest extends \PHPUnit_Framework_TestCase
         self::$expectedFiles[] = realpath(self::expand('dir2/file.php'));
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         unlink(self::expand('dir/file.php'));
         unlink(self::expand('dir2/file.php'));
@@ -46,7 +46,7 @@ class FileIteratorTest extends \PHPUnit_Framework_TestCase
 
     public function testExceptionWhenNoPathsAreSet()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
         new FileIterator([]);
     }
 

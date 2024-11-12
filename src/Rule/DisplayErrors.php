@@ -40,6 +40,7 @@ class DisplayErrors implements RuleInterface
     public function isValid(Node $node)
     {
         if ($this->isFunctionCall($node, 'ini_set') && $this->readArgument($node, 0) === 'display_errors') {
+            $arg = $this->readArgument($node, 1);
             return in_array($this->readArgument($node, 1), $this->allowed, true);
         }
         return true;
@@ -49,7 +50,7 @@ class DisplayErrors implements RuleInterface
     {
         $arg = $this->getCalledFunctionArgument($node, $index);
         if ($this->isBoolLiteral($arg->value)) {
-            return (string)$arg->name;
+            return $arg->value->{'name'}->name;
         }
         return property_exists($arg->value, 'value') ? $arg->value->{'value'} : '';
     }

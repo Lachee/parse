@@ -5,7 +5,7 @@ namespace Psecio\Parse;
 /**
  * @coversNothing
  */
-class IntegrationTest extends \PHPUnit_Framework_TestCase
+class IntegrationTest extends \PHPUnit\Framework\TestCase
 {
     const EXECUTABLE = "bin/psecio-parse";
 
@@ -24,5 +24,6 @@ class IntegrationTest extends \PHPUnit_Framework_TestCase
 
         pclose(popen(self::EXECUTABLE . " scan $filename", 'r'));
         unlink($filename);
+        $this->expectNotToPerformAssertions();
     }
 }

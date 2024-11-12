@@ -4,7 +4,7 @@ namespace Psecio\Parse\Subscriber;
 
 use Mockery as m;
 
-class ConsoleReportTest extends \PHPUnit_Framework_TestCase
+class ConsoleReportTest extends \PHPUnit\Framework\TestCase
 {
     public function testPassReport()
     {

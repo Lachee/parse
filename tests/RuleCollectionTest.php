@@ -7,7 +7,7 @@ use Mockery as m;
 /**
  * @covers \Psecio\Parse\RuleCollection
  */
-class RuleCollectionTest extends \PHPUnit_Framework_TestCase
+class RuleCollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testAddHasGetRemove()
     {
@@ -107,13 +107,13 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testExceptionInGet()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
         (new RuleCollection)->get('does-not-exist');
     }
 
     public function testExceptionInRemove()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
         (new RuleCollection)->remove('does-not-exist');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Psecio\Parse\DocComment;
 
-class DocCommentTest extends \PHPUnit_Framework_TestCase
+class DocCommentTest extends \PHPUnit\Framework\TestCase
 {
     const DOC_BLOCK = <<<'EOF'
 /**

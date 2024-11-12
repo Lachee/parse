@@ -9,27 +9,27 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @covers \Psecio\Parse\Command\ScanCommand
  */
-class ScanCommandTest extends \PHPUnit_Framework_TestCase
+class ScanCommandTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var string Name of empty php file used in scanning
      */
     private static $filename;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$filename = sys_get_temp_dir() . '/' . uniqid('psecio-parse') . '.php';
         touch(self::$filename);
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         unlink(self::$filename);
     }
 
     public function testDottedOutput()
     {
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/\./',
             $this->executeCommand(['--format' => 'dots']),
             'Using --format=dots should generate output'
@@ -38,7 +38,7 @@ class ScanCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testProgressOutput()
     {
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/\[\=+\]/',
             $this->executeCommand(['--format' => 'progress'], ['decorated' => true]),
             'Using --format=progress should use the progressbar'
@@ -47,7 +47,7 @@ class ScanCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testVerboseOutput()
     {
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/\[PARSE\]/',
             $this->executeCommand([], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]),
             'Using -v should generate verbose output'
@@ -56,7 +56,7 @@ class ScanCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testVeryVerboseOutput()
     {
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/\[DEBUG\]/',
             $this->executeCommand([], ['verbosity' => OutputInterface::VERBOSITY_VERY_VERBOSE]),
             'Using -vv should generate debug output'
@@ -65,7 +65,7 @@ class ScanCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testXmlOutput()
     {
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/^<\?xml version="1.0" encoding="UTF-8"\?>/',
             $this->executeCommand(['--format' => 'xml']),
             'Using --format=xml should generate a valid xml doctype'
@@ -74,7 +74,7 @@ class ScanCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testExceptionOnUnknownFormat()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException(\RuntimeException::class);
         $this->executeCommand(['--format' => 'this-format-does-not-exist']);
     }
 

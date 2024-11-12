@@ -5,11 +5,11 @@ namespace Psecio\Parse;
 use SplFileInfo;
 use Mockery as m;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends \PHPUnit\Framework\TestCase
 {
     public function testExceptionOnInvalidPath()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
         new File(new SplFileInfo('this/really/does/not/exist/at/all'));
     }
 
@@ -32,7 +32,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testGetContent()
     {
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/public function testGetContent()/',
             (new File(new SplFileInfo(__FILE__)))->getContents(),
             'The contents from this file should be fetched correctly'

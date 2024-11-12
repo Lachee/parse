@@ -6,3 +6,5 @@
 /bin/phpunit
 /bin/phpunit.bat
 /bin/test-reporter
+
+.phpunit.result.cache

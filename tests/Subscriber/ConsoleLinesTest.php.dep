@@ -4,7 +4,7 @@ namespace Psecio\Parse\Subscriber;
 
 use Mockery as m;
 
-class ConsoleLinesTest extends \PHPUnit_Framework_TestCase
+class ConsoleLinesTest extends \PHPUnit\Framework\TestCase
 {
     public function testOutput()
     {

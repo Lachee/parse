@@ -11,7 +11,7 @@ use PhpParser\ParserFactory;
 /**
  * Base test for implementing full-parse based unit tests
  */
-abstract class RuleTestCase extends \PHPUnit_Framework_TestCase
+abstract class RuleTestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Parser The parser to use to parse samples
@@ -21,9 +21,9 @@ abstract class RuleTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Set up the parser the same way the Scanner does
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+        $this->parser = (new ParserFactory())->createForNewestSupportedVersion();
     }
 
     /**
@@ -73,8 +73,7 @@ abstract class RuleTestCase extends \PHPUnit_Framework_TestCase
 
     public function testDescription()
     {
-        $this->assertInternalType(
-            'string',
+        $this->assertIsString(
             $this->buildTest()->getDescription(),
             'getDescription() must return a string'
         );
@@ -82,13 +81,12 @@ abstract class RuleTestCase extends \PHPUnit_Framework_TestCase
 
     public function testLongDescription()
     {
-        $this->assertInternalType(
-            'string',
+        $this->assertIsString(
             $this->buildTest()->getLongDescription(),
             'getLongDescription() must return a string'
         );
     }
-
+    
     /**
      * Assert that running $test against $code results in $expected
      *

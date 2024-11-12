@@ -16,6 +16,9 @@
             "homepage": "https://lachee.dev"
         }
     ],
+    "scripts": {
+        "test": "bin/phpunit --configuration phpunit.xml"
+    },
     "require":{
         "php": ">=5.4",
         "nikic/php-parser": "^5.0",

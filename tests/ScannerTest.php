@@ -3,16 +3,17 @@
 namespace Psecio\Parse;
 
 use Mockery as m;
+use Mockery;
 
-class ScannerTest extends \PHPUnit_Framework_TestCase
+class ScannerTest extends \PHPUnit\Framework\TestCase
 {
     public function testCallbackOnIssue()
     {
         $dispatcher = m::mock('\Symfony\Component\EventDispatcher\EventDispatcherInterface')
             ->shouldReceive('dispatch')
             ->once()
-            ->with(Scanner::FILE_ISSUE, m::type('\Psecio\Parse\Event\IssueEvent'))
-            ->mock();
+            ->with(m::type('\Psecio\Parse\Event\IssueEvent'), Scanner::FILE_ISSUE)
+            ->getMock();
 
         $scanner = new Scanner(
             $dispatcher,
@@ -76,17 +77,26 @@ class ScannerTest extends \PHPUnit_Framework_TestCase
     private function createErrorDispatcherMock()
     {
         $dispatcher = m::mock('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $dispatcher->shouldReceive('dispatch')->ordered()->once()->with(Scanner::SCAN_START);
         $dispatcher->shouldReceive('dispatch')->ordered()->once()->with(
+            m::any(),
+            Scanner::SCAN_START
+        );
+        $dispatcher->shouldReceive('dispatch')->ordered()->once()->with(
+            m::type('\Psecio\Parse\Event\FileEvent'),
             Scanner::FILE_OPEN,
-            m::type('\Psecio\Parse\Event\FileEvent')
         );
         $dispatcher->shouldReceive('dispatch')->ordered()->once()->with(
+            m::type('\Psecio\Parse\Event\ErrorEvent'),
             Scanner::FILE_ERROR,
-            m::type('\Psecio\Parse\Event\ErrorEvent')
         );
-        $dispatcher->shouldReceive('dispatch')->ordered()->once()->with(Scanner::FILE_CLOSE);
-        $dispatcher->shouldReceive('dispatch')->ordered()->once()->with(Scanner::SCAN_COMPLETE);
+        $dispatcher->shouldReceive('dispatch')->ordered()->once()->with(
+            m::type('\Psecio\Parse\Event\FileEvent'),
+            Scanner::FILE_CLOSE
+        );
+        $dispatcher->shouldReceive('dispatch')->ordered()->once()->with(
+            m::any(),
+            Scanner::SCAN_COMPLETE
+        );
 
         return $dispatcher;
     }

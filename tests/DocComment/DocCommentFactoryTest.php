@@ -2,7 +2,7 @@
 
 namespace Psecio\Parse\DocComment;
 
-class DocCommentFactoryTest extends \PHPUnit_Framework_TestCase
+class DocCommentFactoryTest extends \PHPUnit\Framework\TestCase
 {
     const COMMENT = <<<EOD
 /**

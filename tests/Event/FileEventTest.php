@@ -4,7 +4,7 @@ namespace Psecio\Parse\Event;
 
 use Mockery as m;
 
-class FileEventTest extends \PHPUnit_Framework_TestCase
+class FileEventTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetFile()
     {

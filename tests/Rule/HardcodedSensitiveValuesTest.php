@@ -76,7 +76,7 @@ class HardcodedSensitiveValuesTest extends RuleTestCase
             ['$super_secret_secret = "really secret";', false],
             ['${$user} = "something";', true],
             ['$this->{$key} = "value";', true],
-            ['const USER = "username";', false],
+            ['const USER = "username";', true],
             ['define("user", "username");', false],
             ['$this->events[$event] = array();', true],
             ['define($const_name, $const_value);', true],

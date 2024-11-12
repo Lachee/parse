@@ -11,7 +11,7 @@ use Mockery as m;
 use Akamon\MockeryCallableMock\MockeryCallableMock;
 use PhpParser\Node;
 
-class CallbackVisitorTest extends \PHPUnit_Framework_TestCase
+class CallbackVisitorTest extends \PHPUnit\Framework\TestCase
 {
     private $docCommentFactory;
     private $file;

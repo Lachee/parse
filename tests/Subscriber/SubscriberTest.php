@@ -4,12 +4,11 @@ namespace Psecio\Parse\Subscriber;
 
 use Mockery as m;
 
-class SubscriberTest extends \PHPUnit_Framework_TestCase
+class SubscriberTest extends \PHPUnit\Framework\TestCase
 {
     public function testSubscription()
     {
-        $this->assertInternalType(
-            'array',
+        $this->assertIsArray(
             Subscriber::getSubscribedEvents()
         );
     }

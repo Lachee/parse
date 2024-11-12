@@ -28,6 +28,7 @@ class HardcodedSensitiveValues implements RuleInterface
             return true;
         }
 
+
         // Fail on straight $var = 'value', where $var is in $sensitiveNames
         return !($this->isSensitiveName($name) &&
                  $value instanceof \PhpParser\Node\Scalar\String_);
@@ -39,8 +40,8 @@ class HardcodedSensitiveValues implements RuleInterface
             return [$node->var->name, $node->expr];
         }
 
-        if ($node instanceof \PhpParser\Node\Const_) {
-            return [$node->name, $node->value];
+        if ($node instanceof \PhpParser\Node\Const_ || $node instanceof \PhpParser\Node\Stmt\Const_) {
+            return [$node->name->name, $node->value->{'value'}];
         }
 
         if ($this->isFunctionCall($node, 'define')) {
@@ -73,6 +74,7 @@ class HardcodedSensitiveValues implements RuleInterface
                 return true;
             }
         }
+        return false;
     }
 
     protected function startsWith($haystack, $needle)

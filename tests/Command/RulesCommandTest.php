@@ -8,7 +8,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * @covers \Psecio\Parse\Command\RulesCommand
  */
-class RulesCommandTest extends \PHPUnit_Framework_TestCase
+class RulesCommandTest extends \PHPUnit\Framework\TestCase
 {
     public function testListRules()
     {
@@ -19,7 +19,7 @@ class RulesCommandTest extends \PHPUnit_Framework_TestCase
 
         $commandTester->execute(['command' => $command->getName()]);
 
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/Description/i',
             $commandTester->getDisplay(),
             'The rules command should produce output'
@@ -35,7 +35,7 @@ class RulesCommandTest extends \PHPUnit_Framework_TestCase
 
         $commandTester->execute(['command' => $command->getName(), 'rule' => 'exitordie']);
 
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/ExitOrDie/',
             $commandTester->getDisplay(),
             'The rules command should produce output'

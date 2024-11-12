@@ -4,7 +4,7 @@ namespace Psecio\Parse\Subscriber;
 
 use Mockery as m;
 
-class ExitCodeCatcherTest extends \PHPUnit_Framework_TestCase
+class ExitCodeCatcherTest extends \PHPUnit\Framework\TestCase
 {
     public function testSuccessCode()
     {

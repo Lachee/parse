@@ -4,7 +4,7 @@ namespace Psecio\Parse\Event;
 
 use Mockery as m;
 
-class ErrorEventTest extends \PHPUnit_Framework_TestCase
+class ErrorEventTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetMessage()
     {

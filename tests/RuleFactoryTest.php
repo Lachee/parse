@@ -5,7 +5,7 @@ namespace Psecio\Parse;
 /**
  * @covers \Psecio\Parse\RuleFactory
  */
-class RuleFactoryTest extends \PHPUnit_Framework_TestCase
+class RuleFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testBundledRules()
     {
